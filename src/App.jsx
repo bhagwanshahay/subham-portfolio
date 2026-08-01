@@ -1,25 +1,36 @@
+import { useState } from "react";
+
+import Loader from "./components/Loader/Loader";
 import Navbar from "./components/Navbar/Navbar";
+
 import Hero from "./sections/Hero/Hero";
 import About from "./sections/About/About";
 import FeaturedWork from "./sections/FeaturedWork/FeaturedWork";
 import Services from "./sections/Services/Services";
 import Clients from "./sections/Clients/Clients";
 import Contact from "./sections/Contact/Contact";
-import Footer from "./sections/Footer/Footer";
 
-function App() {
+export default function App() {
+  const [loading, setLoading] = useState(true);
+
   return (
     <>
+      {loading && (
+        <Loader
+          onComplete={() => setLoading(false)}
+        />
+      )}
+
       <Navbar />
-      <Hero />
-      <About />
-      <FeaturedWork />
-      <Services />
-      <Clients />
-      <Contact />
-      <Footer />
+
+      <main>
+        <Hero />
+        <About />
+        <FeaturedWork />
+        <Services />
+        <Clients />
+        <Contact />
+      </main>
     </>
   );
 }
-
-export default App;

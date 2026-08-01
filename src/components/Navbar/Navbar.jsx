@@ -8,6 +8,7 @@ function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
 
   const navLinks = [
+    { name: "Home", id: "home" },
     { name: "Work", id: "work" },
     { name: "About", id: "about" },
     { name: "Services", id: "services" },
@@ -108,13 +109,11 @@ function Navbar() {
                 relative
                 transition-colors
                 duration-300
-
                 ${
                   activeSection === item.id
                     ? "text-black"
                     : "text-gray-500 hover:text-black"
                 }
-
                 after:absolute
                 after:left-0
                 after:-bottom-1
@@ -122,7 +121,6 @@ function Navbar() {
                 after:bg-black
                 after:transition-all
                 after:duration-300
-
                 ${
                   activeSection === item.id
                     ? "after:w-full"
@@ -135,8 +133,9 @@ function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop Button */}
+        {/* Desktop Magnetic Button */}
         <MagneticButton
+          onClick={() => scrollToSection("contact")}
           className="
             hidden
             md:block
@@ -217,11 +216,10 @@ function Navbar() {
                 font-medium
                 transition-colors
                 duration-300
-
                 ${
                   activeSection === item.id
                     ? "text-black"
-                    : "text-gray-500"
+                    : "text-gray-500 hover:text-black"
                 }
               `}
             >
@@ -240,7 +238,7 @@ function Navbar() {
               duration-300
               hover:bg-neutral-800
             "
-            onClick={() => setIsOpen(false)}
+            onClick={() => scrollToSection("contact")}
           >
             Start Project
           </button>
