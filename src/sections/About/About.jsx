@@ -1,3 +1,5 @@
+import useReveal from "../../hooks/useReveal";
+
 const stats = [
   {
     number: "150+",
@@ -18,8 +20,13 @@ const stats = [
 ];
 
 export default function About() {
+  const sectionRef = useReveal();
+
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 py-24 lg:py-36">
+    <section
+      ref={sectionRef}
+      className="max-w-7xl mx-auto px-4 sm:px-6 py-24 lg:py-36"
+    >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
         {/* Left */}
         <div className="max-w-xl">
@@ -60,7 +67,6 @@ export default function About() {
             creators, and businesses stand out.
           </p>
 
-          {/* Stats */}
           <div className="mt-14 grid grid-cols-2 gap-5 sm:gap-6">
             {stats.map((item) => (
               <div

@@ -1,42 +1,78 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../../assets/logos/logo-black.png";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const navLinks = [
-    "Work",
-    "About",
-    "Blog",
-    "Contact",
-  ];
+  const navLinks = ["Work", "About", "Blog", "Contact"];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 30);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <nav className="w-full py-3 border-b border-gray-100 bg-white sticky top-0 z-50">
-
+    <nav
+      className={`
+        sticky
+        top-0
+        z-50
+        w-full
+        transition-all
+        duration-500
+        ${
+          isScrolled
+            ? "py-2 bg-white/80 backdrop-blur-xl shadow-md border-b border-gray-200"
+            : "py-4 bg-transparent"
+        }
+      `}
+    >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-
         {/* Logo */}
         <div className="cursor-pointer">
           <img
             src={logo}
             alt="Generate Guy Logo"
-            className="h-12 w-auto object-contain"
+            className={`
+              object-contain
+              transition-all
+              duration-500
+              ${isScrolled ? "h-10" : "h-12"}
+            `}
           />
         </div>
 
         {/* Desktop Navigation */}
         <ul className="hidden md:flex items-center gap-10 text-[15px] font-medium">
-
           {navLinks.map((item) => (
             <li
               key={item}
-              className="cursor-pointer hover:text-gray-500 transition duration-300"
+              className="
+                cursor-pointer
+                relative
+                transition-colors
+                duration-300
+                hover:text-black
+                after:absolute
+                after:left-0
+                after:-bottom-1
+                after:h-[2px]
+                after:w-0
+                after:bg-black
+                after:transition-all
+                after:duration-300
+                hover:after:w-full
+              "
             >
               {item}
             </li>
           ))}
-
         </ul>
 
         {/* Desktop Button */}
@@ -44,15 +80,17 @@ function Navbar() {
           className="
             hidden
             md:block
+            rounded-full
             bg-black
-            text-white
             px-7
             py-3
-            rounded-full
             font-medium
-            hover:bg-neutral-800
+            text-white
             transition-all
             duration-300
+            hover:scale-105
+            hover:bg-neutral-800
+            hover:shadow-xl
           "
         >
           Start Project
@@ -67,21 +105,20 @@ function Navbar() {
             className={`block h-0.5 w-6 bg-black transition-all duration-300 ${
               isOpen ? "rotate-45 translate-y-2" : ""
             }`}
-          ></span>
+          />
 
           <span
             className={`block h-0.5 w-6 bg-black transition-all duration-300 ${
               isOpen ? "opacity-0" : ""
             }`}
-          ></span>
+          />
 
           <span
             className={`block h-0.5 w-6 bg-black transition-all duration-300 ${
               isOpen ? "-rotate-45 -translate-y-2" : ""
             }`}
-          ></span>
+          />
         </button>
-
       </div>
 
       {/* Mobile Menu */}
@@ -98,14 +135,30 @@ function Navbar() {
           }
         `}
       >
-
-        <div className="px-6 py-6 flex flex-col gap-6 bg-white border-t border-gray-100">
-
+        <div
+          className="
+            flex
+            flex-col
+            gap-6
+            border-t
+            border-gray-100
+            bg-white/95
+            backdrop-blur-xl
+            px-6
+            py-6
+          "
+        >
           {navLinks.map((item) => (
             <a
               key={item}
               href="#"
-              className="text-lg font-medium hover:text-gray-500 transition"
+              className="
+                text-lg
+                font-medium
+                transition-colors
+                duration-300
+                hover:text-gray-500
+              "
               onClick={() => setIsOpen(false)}
             >
               {item}
@@ -114,21 +167,21 @@ function Navbar() {
 
           <button
             className="
-              bg-black
-              text-white
-              py-3
-              rounded-full
               mt-2
+              rounded-full
+              bg-black
+              py-3
+              text-white
+              transition-all
+              duration-300
+              hover:bg-neutral-800
             "
             onClick={() => setIsOpen(false)}
           >
             Start Project
           </button>
-
         </div>
-
       </div>
-
     </nav>
   );
 }

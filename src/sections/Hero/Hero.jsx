@@ -1,9 +1,18 @@
 import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import heroImage from "../../assets/images/hero-image.jpg";
 
+gsap.registerPlugin(useGSAP);
+
 export default function Hero() {
+  const heroRef = useRef(null);
+  const imageRef = useRef(null);
+  const topTextRef = useRef(null);
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const cardsRef = useRef([]);
+
   const services = [
     {
       number: "01",
@@ -35,12 +44,65 @@ export default function Hero() {
     },
   ];
 
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({
+        defaults: {
+          duration: 0.8,
+          ease: "power3.out",
+        },
+      });
+
+      tl.from(imageRef.current, {
+        scale: 1.08,
+        opacity: 0,
+      })
+        .from(
+          topTextRef.current,
+          {
+            y: -30,
+            opacity: 0,
+          },
+          "-=0.5"
+        )
+        .from(
+          titleRef.current,
+          {
+            y: 80,
+            opacity: 0,
+          },
+          "-=0.45"
+        )
+        .from(
+          subtitleRef.current,
+          {
+            y: 50,
+            opacity: 0,
+          },
+          "-=0.45"
+        )
+        .from(
+          cardsRef.current,
+          {
+            y: 50,
+            opacity: 0,
+            stagger: 0.15,
+          },
+          "-=0.35"
+        );
+    },
+    { scope: heroRef }
+  );
+
   return (
     <section className="px-4 sm:px-6 pb-6">
-      <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[32px] bg-gray-200">
-
+      <div
+        ref={heroRef}
+        className="relative mx-auto max-w-7xl overflow-hidden rounded-[32px] bg-gray-200"
+      >
         {/* Background Image */}
         <img
+          ref={imageRef}
           src={heroImage}
           alt="Video Editor"
           className="
@@ -59,6 +121,7 @@ export default function Hero() {
 
         {/* Top Right Text */}
         <div
+          ref={topTextRef}
           className="
             absolute
             top-8
@@ -93,6 +156,7 @@ export default function Hero() {
           "
         >
           <h1
+            ref={titleRef}
             className="
               text-5xl
               sm:text-6xl
@@ -108,6 +172,7 @@ export default function Hero() {
           </h1>
 
           <h2
+            ref={subtitleRef}
             className="
               mt-2
               ml-4
@@ -148,8 +213,9 @@ export default function Hero() {
               lg:gap-5
             "
           >
-            {services.map((service) => (
+                        {services.map((service, index) => (
               <div
+                ref={(el) => (cardsRef.current[index] = el)}
                 key={service.number}
                 className="
                   rounded-3xl
@@ -197,7 +263,6 @@ export default function Hero() {
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );
