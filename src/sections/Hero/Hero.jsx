@@ -95,7 +95,10 @@ export default function Hero() {
   );
 
   return (
-    <section className="px-4 sm:px-6 pb-6">
+    <section
+      id="home"
+      className="px-4 sm:px-6 pb-6"
+    >
       <div
         ref={heroRef}
         className="relative mx-auto max-w-7xl overflow-hidden rounded-[32px] bg-gray-200"
@@ -213,7 +216,7 @@ export default function Hero() {
               lg:gap-5
             "
           >
-                        {services.map((service, index) => (
+            {services.map((service, index) => (
               <div
                 ref={(el) => (cardsRef.current[index] = el)}
                 key={service.number}
