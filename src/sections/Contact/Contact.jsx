@@ -1,4 +1,5 @@
 import useReveal from "../../hooks/useReveal";
+import ContactForm from "../../components/ContactForm/ContactForm";
 
 export default function Contact() {
   const sectionRef = useReveal();
@@ -51,55 +52,13 @@ export default function Contact() {
             text-gray-300
           "
         >
-          Looking for cinematic edits, commercial videos, reels, VFX or
-          creative storytelling? Let's discuss your project and bring your
-          vision to life.
+          Looking for cinematic edits, commercial videos, reels, VFX,
+          or creative storytelling? Fill out the form below and I'll
+          get back to you as soon as possible.
         </p>
 
-        {/* Buttons */}
-        <div className="mt-12 flex flex-wrap gap-4 sm:gap-5">
-          <a
-            href="mailto:hello@generateguy.com"
-            className="
-              rounded-full
-              bg-white
-              px-7
-              py-3.5
-              sm:px-8
-              sm:py-4
-              font-medium
-              text-black
-              transition-all
-              duration-300
-              hover:-translate-y-1
-              hover:scale-105
-              hover:shadow-2xl
-            "
-          >
-            Send Email
-          </a>
-
-          <a
-            href="#"
-            className="
-              rounded-full
-              border
-              border-white
-              px-7
-              py-3.5
-              sm:px-8
-              sm:py-4
-              transition-all
-              duration-300
-              hover:-translate-y-1
-              hover:bg-white
-              hover:text-black
-              hover:shadow-xl
-            "
-          >
-            Instagram
-          </a>
-        </div>
+        {/* Contact Form */}
+        <ContactForm />
       </div>
     </section>
   );
