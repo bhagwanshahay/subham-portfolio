@@ -1,3 +1,4 @@
+import heroImage from "../../assets/images/hero-image.jpg";
 export default function Hero() {
   const services = [
     {
@@ -35,10 +36,10 @@ export default function Hero() {
       <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[32px] bg-gray-200">
         {/* Background Image */}
         <img
-          src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1600"
-          alt="Hero"
-          className="h-[820px] w-full object-cover"
-        />
+  src={heroImage}
+  alt="Video Editor"
+  className="h-[750px] w-full object-cover"
+/>
 
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/25" />
