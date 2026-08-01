@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import logo from "../../assets/logos/logo-black.png";
+import MagneticButton from "../MagneticButton/MagneticButton";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -75,8 +76,8 @@ function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop Button */}
-        <button
+        {/* Desktop Magnetic Button */}
+        <MagneticButton
           className="
             hidden
             md:block
@@ -94,7 +95,7 @@ function Navbar() {
           "
         >
           Start Project
-        </button>
+        </MagneticButton>
 
         {/* Mobile Menu Button */}
         <button
@@ -122,7 +123,6 @@ function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-
       <div
         className={`
           overflow-hidden
