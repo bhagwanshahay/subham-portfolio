@@ -5,18 +5,63 @@ import MagneticButton from "../MagneticButton/MagneticButton";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
-  const navLinks = ["Work", "About", "Blog", "Contact"];
+  const navLinks = [
+    { name: "Work", id: "work" },
+    { name: "About", id: "about" },
+    { name: "Services", id: "services" },
+    { name: "Contact", id: "contact" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 30);
+
+      const sections = [
+        "home",
+        "work",
+        "about",
+        "services",
+        "clients",
+        "contact",
+      ];
+
+      const scrollPosition = window.scrollY + 150;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+
+        if (!element) continue;
+
+        if (
+          scrollPosition >= element.offsetTop &&
+          scrollPosition < element.offsetTop + element.offsetHeight
+        ) {
+          setActiveSection(section);
+        }
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
 
+    handleScroll();
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+
+    if (!section) return;
+
+    section.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+
+    setIsOpen(false);
+  };
 
   return (
     <nav
@@ -36,7 +81,10 @@ function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <div className="cursor-pointer">
+        <div
+          className="cursor-pointer"
+          onClick={() => scrollToSection("home")}
+        >
           <img
             src={logo}
             alt="Generate Guy Logo"
@@ -53,30 +101,41 @@ function Navbar() {
         <ul className="hidden md:flex items-center gap-10 text-[15px] font-medium">
           {navLinks.map((item) => (
             <li
-              key={item}
-              className="
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
+              className={`
                 cursor-pointer
                 relative
                 transition-colors
                 duration-300
-                hover:text-black
+
+                ${
+                  activeSection === item.id
+                    ? "text-black"
+                    : "text-gray-500 hover:text-black"
+                }
+
                 after:absolute
                 after:left-0
                 after:-bottom-1
                 after:h-[2px]
-                after:w-0
                 after:bg-black
                 after:transition-all
                 after:duration-300
-                hover:after:w-full
-              "
+
+                ${
+                  activeSection === item.id
+                    ? "after:w-full"
+                    : "after:w-0 hover:after:w-full"
+                }
+              `}
             >
-              {item}
+              {item.name}
             </li>
           ))}
         </ul>
 
-        {/* Desktop Magnetic Button */}
+        {/* Desktop Button */}
         <MagneticButton
           className="
             hidden
@@ -149,20 +208,25 @@ function Navbar() {
           "
         >
           {navLinks.map((item) => (
-            <a
-              key={item}
-              href="#"
-              className="
+            <button
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
+              className={`
+                text-left
                 text-lg
                 font-medium
                 transition-colors
                 duration-300
-                hover:text-gray-500
-              "
-              onClick={() => setIsOpen(false)}
+
+                ${
+                  activeSection === item.id
+                    ? "text-black"
+                    : "text-gray-500"
+                }
+              `}
             >
-              {item}
-            </a>
+              {item.name}
+            </button>
           ))}
 
           <button
