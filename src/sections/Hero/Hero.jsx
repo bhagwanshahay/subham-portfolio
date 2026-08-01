@@ -1,3 +1,6 @@
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import heroImage from "../../assets/images/hero-image.jpg";
 
 export default function Hero() {
