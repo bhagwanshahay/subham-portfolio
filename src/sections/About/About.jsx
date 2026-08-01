@@ -24,6 +24,7 @@ export default function About() {
 
   return (
     <section
+      id="about"
       ref={sectionRef}
       className="max-w-7xl mx-auto px-4 sm:px-6 py-24 lg:py-36"
     >

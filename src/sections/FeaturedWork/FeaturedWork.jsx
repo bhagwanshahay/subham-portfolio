@@ -7,6 +7,7 @@ export default function FeaturedWork() {
 
   return (
     <section
+      id="work"
       ref={sectionRef}
       className="max-w-7xl mx-auto px-4 sm:px-6 py-20 lg:py-28"
     >

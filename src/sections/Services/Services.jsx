@@ -6,6 +6,7 @@ export default function Services() {
 
   return (
     <section
+      id="services"
       ref={sectionRef}
       className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-20 lg:pt-24 lg:pb-28"
     >
