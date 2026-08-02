@@ -1,5 +1,5 @@
-import services from "../data/services";
-import useReveal from "../hooks/useReveal";
+import services from "../../data/services";
+import useReveal from "../../hooks/useReveal";
 
 export default function Services() {
   const sectionRef = useReveal();
